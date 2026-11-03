@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kids Smart Game</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #eaf5ff;
+  margin: 0;
+  padding: 20px;
+}
+h1 { color: #7545bb; }
+.card {
+  background: white;
+  border-radius: 25px;
+  padding: 25px;
+  max-width: 450px;
+  margin: auto;
+  box-shadow: 0 4px 12px #ccc;
+}
+#colorBox {
+  width: 160px;
+  height: 160px;
+  border-radius: 25px;
+  margin: 20px auto;
+  background: red;
+  border: 5px solid white;
+}
+button {
+  padding: 15px 22px;
+  margin: 8px;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  background: #8b5cf6;
+  color: white;
+}
+button:active { transform: scale(.95); }
+#result {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>🌈 KIDS SMART GAME</h1>
+<h3>Jom Belajar Warna!</h3>
+
+<p>Tekan butang SPIN untuk pilih warna.</p>
+
+<div id="colorBox"></div>
+
+<h2 id="question">Tekan SPIN!</h2>
+
+<button onclick="spin()">🎡 SPIN</button>
+
+<div id="answers"></div>
+
+<div id="result"></div>
+
+<h3>⭐ Markah: <span id="score">0</span></h3>
+
+</div>
+
+<script>
+const colors = [
+{name:"MERAH", code:"#ff0000"},
+{name:"BIRU", code:"#2196f3"},
+{name:"KUNING", code:"#ffeb3b"},
+{name:"HIJAU", code:"#4caf50"},
+{name:"UNGU", code:"#9c27b0"},
+{name:"OREN", code:"#ff9800"}
+];
+
+let answer = "";
+let score = 0;
+let locked = true;
+
+function spin() {
+  locked = true;
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("answers").innerHTML = "";
+
+  let selected = colors[Math.floor(Math.random()*colors.length)];
+  answer = selected.name;
+
+  document.getElementById("colorBox").style.background = selected.code;
+  document.getElementById("question").innerHTML =
+    "Apakah nama warna ini?";
+
+  let choices = [...colors]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+
+  if (!choices.some(c => c.name === answer)) {
+    choices[0] = selected;
+  }
+
+  choices.sort(() => Math.random() - 0.5);
+
+  choices.forEach(c => {
+    let btn = document.createElement("button");
+    btn.innerHTML = c.name;
+    btn.onclick = () => check(c.name);
+    document.getElementById("answers").appendChild(btn);
+  });
+
+  locked = false;
+}
+
+function check(choice) {
+  if (locked) return;
+  locked = true;
+
+  if (choice === answer) {
+    score++;
+    document.getElementById("result").innerHTML =
+      "🎉 TAHNIAH! JAWAPAN BETUL!";
+  } else {
+    document.getElementById("result").innerHTML =
+      "😊 Cuba lagi! Jawapan: " + answer;
+  }
+
+  document.getElementById("score").innerHTML = score;
+}
+
+</script>
+
+</body>
+</html>
