@@ -3,136 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kids Smart Game</title>
-
+<title>KIDS SMART GAME</title>
 <style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: #eaf5ff;
-  margin: 0;
-  padding: 20px;
-}
-h1 { color: #7545bb; }
-.card {
-  background: white;
-  border-radius: 25px;
-  padding: 25px;
-  max-width: 450px;
-  margin: auto;
-  box-shadow: 0 4px 12px #ccc;
-}
-#colorBox {
-  width: 160px;
-  height: 160px;
-  border-radius: 25px;
-  margin: 20px auto;
-  background: red;
-  border: 5px solid white;
-}
-button {
-  padding: 15px 22px;
-  margin: 8px;
-  border: none;
-  border-radius: 15px;
-  font-size: 18px;
-  background: #8b5cf6;
-  color: white;
-}
-button:active { transform: scale(.95); }
-#result {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 20px;
-}
+*{box-sizing:border-box}
+body{margin:0;padding:15px;font-family:Arial;background:linear-gradient(135deg,#fff0ce,#ffe1ed,#dff4ff);color:#29364b;text-align:center}
+main{max-width:760px;margin:auto}
+h1{color:#8053ad;font-size:clamp(28px,7vw,42px)}
+.card{background:#ffffffed;border-radius:24px;padding:18px;margin:14px auto;box-shadow:0 5px 20px #7772}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px}
+button{border:0;border-radius:17px;padding:15px;font-size:19px;font-weight:bold;cursor:pointer;background:#c9eaff;color:#29364b}
+.grid button:nth-child(2){background:#ffec9e}
+.grid button:nth-child(3){background:#ffc9dc}
+.grid button:nth-child(4){background:#c9f0c5}
+.grid button:nth-child(5){background:#dfd0ff}
+#game{display:none}
+#pic{font-size:100px;margin:15px}
+#question{font-size:26px}
+.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.answers button{background:#eee4ff;min-height:65px}
+#feedback{font-size:24px;font-weight:bold;min-height:35px;margin:15px}
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tools button{background:#bdecc5}
+@media(max-width:480px){.answers{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
+<main>
+<h1>🌈 KIDS SMART GAME 🌈</h1>
+<p>Jom belajar sambil bermain!</p>
 
-<div class="card">
-<h1>🌈 KIDS SMART GAME</h1>
-<h3>Jom Belajar Warna!</h3>
-
-<p>Tekan butang SPIN untuk pilih warna.</p>
-
-<div id="colorBox"></div>
-
-<h2 id="question">Tekan SPIN!</h2>
-
-<button onclick="spin()">🎡 SPIN</button>
-
-<div id="answers"></div>
-
-<div id="result"></div>
-
-<h3>⭐ Markah: <span id="score">0</span></h3>
-
+<section class="card" id="home">
+<h2>🎮 Pilih Permainan</h2>
+<div class="grid">
+<button onclick="start('warna')">🎨<br>Kenal Warna</button>
+<button onclick="start('nombor')">🔢<br>Nombor 1–10</button>
+<button onclick="start('abc')">🔤<br>Huruf ABC</button>
+<button onclick="start('haiwan')">🐘<br>Kenal Haiwan</button>
+<button onclick="start('buah')">🍎<br>Kenal Buah</button>
 </div>
+<p>Tekan jawapan yang betul. Semoga berjaya! ⭐</p>
+</section>
+
+<section class="card" id="game">
+<div style="display:flex;justify-content:space-between;gap:8px">
+<b id="name"></b><b id="score">⭐ Markah: 0</b>
+</div>
+<p id="question">Apakah ini?</p>
+<div id="pic">🎨</div>
+<div class="answers" id="answers"></div>
+<div id="feedback" aria-live="polite"></div>
+<div class="tools">
+<button onclick="hear()">🔊 Dengar</button>
+<button onclick="next()">Seterusnya ➜</button>
+<button onclick="home()">🏠 Menu</button>
+</div>
+</section>
+<p>KIDS SMART GAME • Belajar dengan gembira 💖</p>
+</main>
 
 <script>
-const colors = [
-{name:"MERAH", code:"#ff0000"},
-{name:"BIRU", code:"#2196f3"},
-{name:"KUNING", code:"#ffeb3b"},
-{name:"HIJAU", code:"#4caf50"},
-{name:"UNGU", code:"#9c27b0"},
-{name:"OREN", code:"#ff9800"}
-];
+const data={
+warna:["Kenal Warna",[
+["Merah","🔴"],["Biru","🔵"],["Kuning","🟡"],
+["Hijau","🟢"],["Ungu","🟣"],["Oren","🟠"],
+["Hitam","⚫"],["Putih","⚪"],["Coklat","🟤"],
+["Merah jambu","🩷"]]],
+nombor:["Nombor 1–10",[
+["Satu","1️⃣"],["Dua","2️⃣"],["Tiga","3️⃣"],
+["Empat","4️⃣"],["Lima","5️⃣"],["Enam","6️⃣"],
+["Tujuh","7️⃣"],["Lapan","8️⃣"],["Sembilan","9️⃣"],
+["Sepuluh","🔟"]]],
+abc:["Huruf ABC",[
+["A","🅰️"],["B","🅱️"],["C","🌜"],["D","🐬"],
+["E","🥚"],["F","🐟"],["G","🦒"],["H","🏠"],
+["I","🍦"],["J","🧃"]]],
+haiwan:["Kenal Haiwan",[
+["Kucing","🐱"],["Anjing","🐶"],["Gajah","🐘"],
+["Singa","🦁"],["Arnab","🐰"],["Monyet","🐵"],
+["Ikan","🐟"],["Burung","🐦"],["Lembu","🐮"],
+["Itik","🦆"]]],
+buah:["Kenal Buah",[
+["Epal","🍎"],["Pisang","🍌"],["Oren","🍊"],
+["Anggur","🍇"],["Tembikai","🍉"],["Strawberi","🍓"],
+["Nanas","🍍"],["Mangga","🥭"],["Ceri","🍒"],
+["Kelapa","🥥"]]]
+};
 
-let answer = "";
-let score = 0;
-let locked = true;
+let type="",items=[],i=0,points=0,answered=false;
 
-function spin() {
-  locked = true;
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("answers").innerHTML = "";
-
-  let selected = colors[Math.floor(Math.random()*colors.length)];
-  answer = selected.name;
-
-  document.getElementById("colorBox").style.background = selected.code;
-  document.getElementById("question").innerHTML =
-    "Apakah nama warna ini?";
-
-  let choices = [...colors]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
-
-  if (!choices.some(c => c.name === answer)) {
-    choices[0] = selected;
-  }
-
-  choices.sort(() => Math.random() - 0.5);
-
-  choices.forEach(c => {
-    let btn = document.createElement("button");
-    btn.innerHTML = c.name;
-    btn.onclick = () => check(c.name);
-    document.getElementById("answers").appendChild(btn);
-  });
-
-  locked = false;
+function mix(a){
+return [...a].sort(()=>Math.random()-.5);
 }
 
-function check(choice) {
-  if (locked) return;
-  locked = true;
-
-  if (choice === answer) {
-    score++;
-    document.getElementById("result").innerHTML =
-      "🎉 TAHNIAH! JAWAPAN BETUL!";
-  } else {
-    document.getElementById("result").innerHTML =
-      "😊 Cuba lagi! Jawapan: " + answer;
-  }
-
-  document.getElementById("score").innerHTML = score;
+function start(t){
+type=t;
+items=mix(data[t][1]);
+i=0;
+points=0;
+document.getElementById('home').style.display='none';
+document.getElementById('game').style.display='block';
+show();
 }
 
+function show(){
+answered=false;
+let x=items[i];
+
+document.getElementById('name').textContent="🎮 "+data[type][0];
+document.getElementById('score').textContent="⭐ Markah: "+points;
+
+document.getElementById('question').textContent=
+type==="nombor"?"Apakah nombor ini?":
+type==="abc"?"Huruf apakah ini?":"Apakah ini?";
+
+document.getElementById('pic').textContent=x[1];
+document.getElementById('feedback').textContent="";
+
+let opts=mix([
+x[0],
+...mix(data[type][1].filter(v=>v[0]!==x[0]))
+.slice(0,2).map(v=>v[0])
+]);
+
+let box=document.getElementById('answers');
+box.innerHTML="";
+
+opts.forEach(v=>{
+let b=document.createElement('button');
+b.textContent=v;
+b.onclick=()=>check(v,x[0]);
+box.appendChild(b);
+});
+
+hear();
+}
+
+function check(v,correct){
+if(answered)return;
+answered=true;
+
+if(v===correct){
+points++;
+document.getElementById('feedback').textContent="Betul! Bagus! 🌟";
+say("Betul! Bagus!");
+}else{
+document.getElementById('feedback').textContent=
+"Cuba lagi! Jawapan: "+correct+" 😊";
+say("Cuba lagi. Jawapannya "+correct);
+}
+
+document.getElementById('score').textContent=
+"⭐ Markah: "+points;
+
+[...document.querySelectorAll('#answers button')]
+.forEach(b=>b.disabled=true);
+}
+
+function next(){
+if(i<items.length-1){
+i++;
+show();
+}else{
+document.getElementById('question').textContent=
+"Tahniah! Permainan selesai!";
+document.getElementById('pic').textContent="🏆";
+document.getElementById('answers').innerHTML="";
+document.getElementById('feedback').textContent=
+"Markah kamu "+points+" / 10 ⭐";
+say("Tahniah! Markah kamu "+points+" daripada sepuluh");
+}
+}
+
+function say(t){
+if('speechSynthesis' in window){
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(t);
+u.lang='ms-MY';
+u.rate=.85;
+speechSynthesis.speak(u);
+}
+}
+
+function hear(){
+if(i<items.length){
+say(document.getElementById('question').textContent+
+" "+items[i][0]);
+}
+}
+
+function home(){
+document.getElementById('game').style.display='none';
+document.getElementById('home').style.display='block';
+if('speechSynthesis' in window)speechSynthesis.cancel();
+}
 </script>
-
 </body>
 </html>
