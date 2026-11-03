@@ -1,201 +1,28 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KIDS SMART GAME</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;padding:15px;font-family:Arial;background:linear-gradient(135deg,#fff0ce,#ffe1ed,#dff4ff);color:#29364b;text-align:center}
-main{max-width:760px;margin:auto}
-h1{color:#8053ad;font-size:clamp(28px,7vw,42px)}
-.card{background:#ffffffed;border-radius:24px;padding:18px;margin:14px auto;box-shadow:0 5px 20px #7772}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px}
-button{border:0;border-radius:17px;padding:15px;font-size:19px;font-weight:bold;cursor:pointer;background:#c9eaff;color:#29364b}
-.grid button:nth-child(2){background:#ffec9e}
-.grid button:nth-child(3){background:#ffc9dc}
-.grid button:nth-child(4){background:#c9f0c5}
-.grid button:nth-child(5){background:#dfd0ff}
-#game{display:none}
-#pic{font-size:100px;margin:15px}
-#question{font-size:26px}
-.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.answers button{background:#eee4ff;min-height:65px}
-#feedback{font-size:24px;font-weight:bold;min-height:35px;margin:15px}
-.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.tools button{background:#bdecc5}
-@media(max-width:480px){.answers{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<main>
-<h1>🌈 KIDS SMART GAME 🌈</h1>
-<p>Jom belajar sambil bermain!</p>
-
-<section class="card" id="home">
-<h2>🎮 Pilih Permainan</h2>
-<div class="grid">
-<button onclick="start('warna')">🎨<br>Kenal Warna</button>
-<button onclick="start('nombor')">🔢<br>Nombor 1–10</button>
-<button onclick="start('abc')">🔤<br>Huruf ABC</button>
-<button onclick="start('haiwan')">🐘<br>Kenal Haiwan</button>
-<button onclick="start('buah')">🍎<br>Kenal Buah</button>
-</div>
-<p>Tekan jawapan yang betul. Semoga berjaya! ⭐</p>
-</section>
-
-<section class="card" id="game">
-<div style="display:flex;justify-content:space-between;gap:8px">
-<b id="name"></b><b id="score">⭐ Markah: 0</b>
-</div>
-<p id="question">Apakah ini?</p>
-<div id="pic">🎨</div>
-<div class="answers" id="answers"></div>
-<div id="feedback" aria-live="polite"></div>
-<div class="tools">
-<button onclick="hear()">🔊 Dengar</button>
-<button onclick="next()">Seterusnya ➜</button>
-<button onclick="home()">🏠 Menu</button>
-</div>
-</section>
-<p>KIDS SMART GAME • Belajar dengan gembira 💖</p>
-</main>
-
-<script>
+<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KIDS SMART GAME PREMIUM</title><style>
+*{box-sizing:border-box}body{margin:0;padding:14px;font-family:Arial;text-align:center;color:#29344d;background:linear-gradient(135deg,#fff0c9,#ffe1ef,#dff4ff)}main{max-width:760px;margin:auto}.card{background:#ffffffed;border-radius:25px;padding:18px;margin:13px auto;box-shadow:0 6px 22px #68557722}h1{color:#8053ad;font-size:clamp(27px,7vw,42px)}.mascot{font-size:65px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px}button{border:0;border-radius:18px;padding:14px;font-size:18px;font-weight:bold;color:#29344d;background:#d9eaff;cursor:pointer}.grid button:nth-child(2){background:#ffec9e}.grid button:nth-child(3){background:#ffc9dc}.grid button:nth-child(4){background:#c9f0c5}.grid button:nth-child(5){background:#dfd0ff}.top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:bold}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.answers button{background:#eee4ff;min-height:62px}#pic{font-size:100px;margin:12px}#question{font-size:25px}#feedback{font-size:23px;font-weight:bold;min-height:34px;margin:12px}.tools{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.tools button{background:#c8efcf}.hide{display:none}.small{font-size:14px}input{font-size:18px;padding:12px;border:2px solid #dfceff;border-radius:12px;width:min(100%,300px)}@media(max-width:480px){.answers{grid-template-columns:1fr}}@media print{body{background:white}.no-print{display:none!important}#cert{display:block!important}}
+</style></head><body><main>
+<h1>🌈 KIDS SMART GAME 🌈</h1><p><b>PREMIUM 2.0</b> • Jom belajar sambil bermain!</p>
+<section class="card" id="home"><div class="mascot">🐻🌟</div><h2>Hai kawan kecil!</h2><p>Pilih permainan kegemaran kamu.</p><div class="grid">
+<button onclick="start('warna')">🎨<br>Kenal Warna</button><button onclick="start('nombor')">🔢<br>Nombor 1–10</button><button onclick="start('abc')">🔤<br>Huruf ABC</button><button onclick="start('haiwan')">🐘<br>Kenal Haiwan</button><button onclick="start('buah')">🍎<br>Kenal Buah</button></div><p><button onclick="musicToggle()">🎵 Muzik: <span id="musicState">OFF</span></button></p><p class="small">Kumpul bintang dan dapatkan sijil! ⭐</p></section>
+<section class="card hide" id="game"><div class="top"><span id="name"></span><span id="score">⭐ 0</span></div><p id="question"></p><div id="pic"></div><div class="answers" id="answers"></div><div id="feedback" aria-live="polite"></div><div class="tools"><button onclick="hear()">🔊 Dengar</button><button onclick="next()">Seterusnya ➜</button><button onclick="goHome()">🏠 Menu</button></div></section>
+<section class="card hide" id="certificate"><div class="mascot">🏆</div><h2>SYABAS, JUARA!</h2><p>Kamu telah menamatkan permainan!</p><p>Nama:</p><input id="childName" placeholder="Nama kanak-kanak"><p id="finalScore"></p><button onclick="makeCertificate()">🎓 Lihat Sijil</button><div id="cert" class="hide"><h2>🌟 SIJIL PENCAPAIAN 🌟</h2><p>Dengan bangganya diberikan kepada</p><h2 id="certName"></h2><p>kerana berjaya menamatkan KIDS SMART GAME.</p><h1>⭐ 🏅 ⭐</h1><p>Teruskan belajar dan berusaha!</p><button onclick="window.print()">🖨️ Cetak Sijil</button></div><button onclick="goHome()">🏠 Menu Utama</button></section>
+</main><script>
 const data={
-warna:["Kenal Warna",[
-["Merah","🔴"],["Biru","🔵"],["Kuning","🟡"],
-["Hijau","🟢"],["Ungu","🟣"],["Oren","🟠"],
-["Hitam","⚫"],["Putih","⚪"],["Coklat","🟤"],
-["Merah jambu","🩷"]]],
-nombor:["Nombor 1–10",[
-["Satu","1️⃣"],["Dua","2️⃣"],["Tiga","3️⃣"],
-["Empat","4️⃣"],["Lima","5️⃣"],["Enam","6️⃣"],
-["Tujuh","7️⃣"],["Lapan","8️⃣"],["Sembilan","9️⃣"],
-["Sepuluh","🔟"]]],
-abc:["Huruf ABC",[
-["A","🅰️"],["B","🅱️"],["C","🌜"],["D","🐬"],
-["E","🥚"],["F","🐟"],["G","🦒"],["H","🏠"],
-["I","🍦"],["J","🧃"]]],
-haiwan:["Kenal Haiwan",[
-["Kucing","🐱"],["Anjing","🐶"],["Gajah","🐘"],
-["Singa","🦁"],["Arnab","🐰"],["Monyet","🐵"],
-["Ikan","🐟"],["Burung","🐦"],["Lembu","🐮"],
-["Itik","🦆"]]],
-buah:["Kenal Buah",[
-["Epal","🍎"],["Pisang","🍌"],["Oren","🍊"],
-["Anggur","🍇"],["Tembikai","🍉"],["Strawberi","🍓"],
-["Nanas","🍍"],["Mangga","🥭"],["Ceri","🍒"],
-["Kelapa","🥥"]]]
-};
-
-let type="",items=[],i=0,points=0,answered=false;
-
-function mix(a){
-return [...a].sort(()=>Math.random()-.5);
-}
-
-function start(t){
-type=t;
-items=mix(data[t][1]);
-i=0;
-points=0;
-document.getElementById('home').style.display='none';
-document.getElementById('game').style.display='block';
-show();
-}
-
-function show(){
-answered=false;
-let x=items[i];
-
-document.getElementById('name').textContent="🎮 "+data[type][0];
-document.getElementById('score').textContent="⭐ Markah: "+points;
-
-document.getElementById('question').textContent=
-type==="nombor"?"Apakah nombor ini?":
-type==="abc"?"Huruf apakah ini?":"Apakah ini?";
-
-document.getElementById('pic').textContent=x[1];
-document.getElementById('feedback').textContent="";
-
-let opts=mix([
-x[0],
-...mix(data[type][1].filter(v=>v[0]!==x[0]))
-.slice(0,2).map(v=>v[0])
-]);
-
-let box=document.getElementById('answers');
-box.innerHTML="";
-
-opts.forEach(v=>{
-let b=document.createElement('button');
-b.textContent=v;
-b.onclick=()=>check(v,x[0]);
-box.appendChild(b);
-});
-
-hear();
-}
-
-function check(v,correct){
-if(answered)return;
-answered=true;
-
-if(v===correct){
-points++;
-document.getElementById('feedback').textContent="Betul! Bagus! 🌟";
-say("Betul! Bagus!");
-}else{
-document.getElementById('feedback').textContent=
-"Cuba lagi! Jawapan: "+correct+" 😊";
-say("Cuba lagi. Jawapannya "+correct);
-}
-
-document.getElementById('score').textContent=
-"⭐ Markah: "+points;
-
-[...document.querySelectorAll('#answers button')]
-.forEach(b=>b.disabled=true);
-}
-
-function next(){
-if(i<items.length-1){
-i++;
-show();
-}else{
-document.getElementById('question').textContent=
-"Tahniah! Permainan selesai!";
-document.getElementById('pic').textContent="🏆";
-document.getElementById('answers').innerHTML="";
-document.getElementById('feedback').textContent=
-"Markah kamu "+points+" / 10 ⭐";
-say("Tahniah! Markah kamu "+points+" daripada sepuluh");
-}
-}
-
-function say(t){
-if('speechSynthesis' in window){
-speechSynthesis.cancel();
-let u=new SpeechSynthesisUtterance(t);
-u.lang='ms-MY';
-u.rate=.85;
-speechSynthesis.speak(u);
-}
-}
-
-function hear(){
-if(i<items.length){
-say(document.getElementById('question').textContent+
-" "+items[i][0]);
-}
-}
-
-function home(){
-document.getElementById('game').style.display='none';
-document.getElementById('home').style.display='block';
-if('speechSynthesis' in window)speechSynthesis.cancel();
-}
-</script>
-</body>
-</html>
+warna:["Kenal Warna",[["Merah","🔴"],["Biru","🔵"],["Kuning","🟡"],["Hijau","🟢"],["Ungu","🟣"],["Oren","🟠"],["Hitam","⚫"],["Putih","⚪"],["Coklat","🟤"],["Merah jambu","🩷"]]],
+nombor:["Nombor 1–10",[["Satu","1️⃣"],["Dua","2️⃣"],["Tiga","3️⃣"],["Empat","4️⃣"],["Lima","5️⃣"],["Enam","6️⃣"],["Tujuh","7️⃣"],["Lapan","8️⃣"],["Sembilan","9️⃣"],["Sepuluh","🔟"]]],
+abc:["Huruf ABC",[["A","🅰️"],["B","🅱️"],["C","🌜"],["D","🐬"],["E","🥚"],["F","🐟"],["G","🦒"],["H","🏠"],["I","🍦"],["J","🧃"]]],
+haiwan:["Kenal Haiwan",[["Kucing","🐱"],["Anjing","🐶"],["Gajah","🐘"],["Singa","🦁"],["Arnab","🐰"],["Monyet","🐵"],["Ikan","🐟"],["Burung","🐦"],["Lembu","🐮"],["Itik","🦆"]]],
+buah:["Kenal Buah",[["Epal","🍎"],["Pisang","🍌"],["Oren","🍊"],["Anggur","🍇"],["Tembikai","🍉"],["Strawberi","🍓"],["Nanas","🍍"],["Mangga","🥭"],["Ceri","🍒"],["Kelapa","🥥"]]]};
+let type="",items=[],i=0,points=0,done=false,music=false,ctx=null,timer=null;
+const el=id=>document.getElementById(id);function mix(a){return [...a].sort(()=>Math.random()-.5)}
+function start(t){type=t;items=mix(data[t][1]);i=0;points=0;el('home').classList.add('hide');el('certificate').classList.add('hide');el('game').classList.remove('hide');show()}
+function show(){done=false;let x=items[i];el('name').textContent="🎮 "+data[type][0];el('score').textContent="⭐ Markah: "+points;el('question').textContent=type==='nombor'?'Apakah nombor ini?':type==='abc'?'Huruf apakah ini?':'Apakah ini?';el('pic').textContent=x[1];el('feedback').textContent="";let choices=mix([x[0],...mix(data[type][1].filter(v=>v[0]!==x[0])).slice(0,2).map(v=>v[0])]);el('answers').innerHTML='';choices.forEach(v=>{let b=document.createElement('button');b.textContent=v;b.onclick=()=>check(v,x[0]);el('answers').appendChild(b)});hear()}
+function check(v,c){if(done)return;done=true;if(v===c){points++;el('feedback').textContent="Betul! Bagus! ⭐🌟";say("Betul! Bagus!");beep()}else{el('feedback').textContent="Cuba lagi! Jawapan: "+c+" 😊";say("Cuba lagi. Jawapannya "+c)}el('score').textContent="⭐ Markah: "+points;[...el('answers').children].forEach(b=>b.disabled=true)}
+function next(){if(i<items.length-1){i++;show()}else{el('game').classList.add('hide');el('certificate').classList.remove('hide');el('finalScore').textContent="Markah kamu: "+points+" daripada 10 ⭐";say("Tahniah! Kamu berjaya menamatkan permainan.")}}
+function say(t){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='ms-MY';u.rate=.85;speechSynthesis.speak(u)}}
+function hear(){if(i<items.length)say(el('question').textContent+" "+items[i][0])}
+function goHome(){el('game').classList.add('hide');el('certificate').classList.add('hide');el('home').classList.remove('hide');el('cert').classList.add('hide');if('speechSynthesis'in window)speechSynthesis.cancel()}
+function musicToggle(){music=!music;el('musicState').textContent=music?'ON':'OFF';if(music){beep();timer=setInterval(beep,900)}else clearInterval(timer)}
+function beep(){if(!music&&ctx)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();let o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=music?660:880;g.gain.value=.045;o.start();o.stop(ctx.currentTime+.12)}catch(e){}}
+function makeCertificate(){el('certName').textContent=el('childName').value.trim()||'PELAJAR CEMERLANG';el('cert').classList.remove('hide')}
+</script></body></html>
